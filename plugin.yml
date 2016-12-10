@@ -1,0 +1,5 @@
+name: JungleRealmCore
+version: 1.0.0
+API: [2.0.0, 2.1.0]
+Author: Jokester4690
+main: JungleRealm\Main
