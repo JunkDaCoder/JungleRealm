@@ -11,6 +11,8 @@ use pocketmine\permission\Permission;
 use pocketmine\level\Level;
 use pocketmine\math\Vector3;
 use pocketmine\level\particle\FloatingTextParticle;
+use pocketmine\level\sound\ButtonClickSound;
+use pocketmine\event\player\PlayerDeathEvent;
 
 class Main extends PluginBase implements Listener{
   public function onEnable(){
@@ -42,3 +44,15 @@ class Main extends PluginBase implements Listener{
     $particle = new FloatingTextParticle(new Vector3($x, $y , $z), $text);
     $level->addParticle($particle);
   }
+  
+  public function Death(PlayerDeathEvent $event){
+    $cause = $event->getEntity()->getLastDamageCause();
+    if($cause instanceof EntityDamageByEntityEvent){
+      $victim = $event->getEntity();
+      $killer = $cause->getEntity();
+      $killername = $killer->getName();
+      $victimname = $victim->getName();
+      $weapon = $killer->getInventory()->getItemInHand();
+      if($killer instanceof Player){
+        $this->getServer()->broadcastMessage(C::DARK_RED . C::BOLD . "x " . C::RESET . C::YELLOW . $victimname . C::ORANGE . " killed by " . C::YELLOW . $killername . C::ORANGE . " with " . C::AQUA . $weapon . C::DARK_RED . C::BOLD . " x");
+      }
