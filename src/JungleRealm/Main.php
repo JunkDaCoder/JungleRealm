@@ -86,7 +86,7 @@ class Main extends PluginBase implements Listener{
                 ++$onlineCount;
               }
             }
-            $sender->sendMessage(C::GRAY . "There are " . C::YELLOW . $this->getServer()->getOnlinePlayers() . C::GRAY . "/ " . C::YELLOW . $this->getServer()->getMaxPlayers() . C::GRAY . " online on " . C::DARK_GREEN . "Jungle Realm" . C::GRAY . ":");
+            $sender->sendMessage(C::GRAY . "There are " . C::YELLOW . $this->getServer()->getOnlinePlayers() . C::GRAY . "/" . C::YELLOW . $this->getServer()->getMaxPlayers() . C::GRAY . " online on " . C::DARK_GREEN . "Jungle Realm" . C::GRAY . ":");
             $sender->sendMessage(C::AQUA . substr($online, 0, -2));
             return true;
       break;
@@ -95,5 +95,19 @@ class Main extends PluginBase implements Listener{
             $sender->sendMessage(C::GRAY . "You killed yourself.");
             break;
           case "gamemode":
+          case "gm":
             if(!($sender->hasPermission("cmd.gamemode"))){
-              $sender->sendMessage(C::"");
+              $sender->sendMessage(C::DARK_GRAY . C::BOLD . "[" . C::RED . "COMMANDS" . C::DARK_GRAY . "] " . C::RESET . C::DARK_RED . "ERROR: " . C::GRAY . "You need the permission " . C::YELLOW . "cmd.gamemode");
+            }else{
+              if($sender->hasPermission("cmd.gamemode")){
+                $sender->sendMessage(C::DARK_GRAY . C::BOLD . "[" . C::RED . "COMMANDS" . C::DARK_GRAY . "] " . C::RESET . C::GRAY . "Specify a gamemode: " . C::AQUA . " Survival (/gms), Creative (/gmc), Spectator (/gmsp), Adventure (/gma)" . C::GRAY . ".");
+                break;
+                case "gms":
+                if($sender->hasPermission("cmd.gamemode.survival")){
+                  $sender->sendMessage(C::DARK_GRAY . C::BOLD . "[" . C::RED . "COMMANDS" . C::DARK_GRAY . "] " . C::RESET . C::GRAY . "Gamemode set to " . C::AQUA . "Survival" . C::GRAY . "!");
+                  break;
+                  case "gmc":
+                  if($sender->hasPermission("cmd.gamemode.creative")){
+                    $sender->sendMessage(C::DARK_GRAY . C::BOLD . "[" . C::RED . "COMMANDS" . C::DARK_GRAY . "] " . C::RESET . C::GRAY . "Gamemode set to " . C::AQUA . "Creative" . "!");
+                    break;
+                  $sender->setGamemode(0);
