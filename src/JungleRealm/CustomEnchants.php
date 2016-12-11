@@ -22,6 +22,9 @@ class CustomEnchantments{
     $speed = Effect::getEffect(1)->setVisible(false)->setAmplifier(3);
     $wither = Effect::getEffect(20)->setVisible(false)->setAmplifier(1);
     $strength = Effect::getEffect(5)->setVisible(false)->setAmplifier(1);
+    $regen = Effect:getEffect(10)->setVisible(false)->setAmplifier(2);
+    $invis = Effect:getEffect(14)->setVisible(false)->setAmplifier(1);
+      
     switch ($enchant){
       case "blindness":
         switch(mt_rand(1, 15) == 1){
@@ -55,3 +58,4 @@ class CustomEnchantments{
             break;
         }
         break;
+      case "escape":
