@@ -13,7 +13,8 @@ use pocketmine\math\Vector3;
 use pocketmine\level\particle\FloatingTextParticle;
 use pocketmine\level\sound\ButtonClickSound;
 use pocketmine\event\player\PlayerDeathEvent;
-use pocketmine\item\enchantment\Enchantment
+use pocketmine\item\enchantment\Enchantment;
+use onebone\economyapi\EconomyAPI;
 
 class Main extends PluginBase implements Listener{
   
@@ -29,7 +30,7 @@ class Main extends PluginBase implements Listener{
     $this->getServer()->getNetwork()->setName($this->getConfig()->get("Server-Name"));
     $this->getServer()->getPluginManager()->registerEvents($this, $this);
     $this->getServer()->getPluginManager()->registerEvents(new EventListener($this), $this);
-    if (!is_dir($this->getDataFolder() . "/bounties")) mkdir($this->getDataFolder() . "/bounties");
+    if(!is_dir($this->getDataFolder() . "/bounties"))mkdir($this->getDataFolder() . "/bounties");
     $this->ce = new CustomEnchants($this);
     $this->reward = new Reward($this);
   }
