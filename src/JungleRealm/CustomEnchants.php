@@ -28,7 +28,7 @@ class CustomEnchantments{
     switch ($enchant){
       case "blindness":
         switch(mt_rand(1, 15) == 1){
-            case 4:
+            case 2:
             $damager->sendMessage(C::DARK_GRAY . C::BOLD . "[" . C::RED . "CE" . C::DARK_GRAY . "] " . C::RESET . C::GREEN . "You've blinded your enemy!");
             $victim->sendMessage(C::DARK_GRAY . C::BOLD . "[" . C::RED . "CE" . C::DARK_GRAY . "] " . C::RESET . C::RED . "Your enemy has blinded you!");
             $blindness->setDuration(200 + 10 * $level);
@@ -38,7 +38,7 @@ class CustomEnchantments{
         break;
       case "venom":
         switch(mt_rand(1, 15) == 1){
-          case 6:
+          case 3:
             $damager->sendMessage(C::DARK_GRAY . C::BOLD . "[" . C::RED . "CE" . C::DARK_GRAY . "] " . C::RESET . C::GREEN . "Enemy has been injected with venom!");
             $victim->sendMessage(C::DARK_GRAY . C::BOLD . "[" . C::RED . "CE" . C::DARK_GRAY . "] " . C::RESET . C::RED . "You've been injected with venom!");
             $poison->setDuration(200 + $level * 20);
@@ -48,7 +48,7 @@ class CustomEnchantments{
         break;
       case "vampire":
         switch(mt_rand(1,30) == 1){
-          case 9:
+          case 4:
             $dmgrhealth = $damager->getHealth();
             $vctmhealth = $victim->getHealth();
             $damager->sendMessage(C::DARK_GRAY . C::BOLD . "[" . C::RED . "CE" . C::DARK_GRAY . "] " . C::RESET . C::GREEN . "+3 HP stolen from enemy!");
@@ -58,4 +58,6 @@ class CustomEnchantments{
             break;
         }
         break;
-      case "escape":
+      case "wither":
+        switch(mt_rand(1,18) == 1){
+          case 5:
