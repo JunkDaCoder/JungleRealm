@@ -29,6 +29,7 @@ class Main extends PluginBase implements Listener{
     $this->getServer()->getNetwork()->setName($this->getConfig()->get("Server-Name"));
     $this->getServer()->getPluginManager()->registerEvents($this, $this);
     $this->getServer()->getPluginManager()->registerEvents(new EventListener($this), $this);
+    if (!is_dir($this->getDataFolder() . "/bounties")) mkdir($this->getDataFolder() . "/bounties");
     $this->ce = new CustomEnchants($this);
     $this->reward = new Reward($this);
   }
@@ -72,6 +73,7 @@ class Main extends PluginBase implements Listener{
         }
         $this->players[$player->getName()] = time();
       }
+      
       public function onCommand(CommandSender $sender, Command $cmd, $label, array $args){
         switch (strtolower($cmd->getName())){
           case "me":
@@ -143,20 +145,50 @@ class Main extends PluginBase implements Listener{
                                        $sender->setHealth(20);
                                        $sender->sendMessage(C::DARK_GRAY . C::BOLD . "[" . C::RED . "COMMANDS" . C::DARK_GRAY . "] " . C::RESET . C::GRAY . "Healed back to full health!");
                                        break;
-                                     }
-                                   }
-                                 }
-                              }
-                      }
-                    }
-                  }
-                }
-              }
-            }
-        }
-      }
-    }
-  }
-}
-                                     
-                      
+                                       case "bounty":
+                                       if(empty($args[0])){
+                                         $sender->sendMessage(C::DARK_GRAY . C::BOLD . "[" . C::RED . "COMMANDS" . C::DARK_GRAY . "] " . C::RESET . C::GRAY . "Please use " . C::AQUA . "/bounty (PLAYER) ($)" . C::GRAY . ".");
+                                         if(isset($args[0]) && isset($args[1])){
+                                           if($player = $this->getServer()->getPlayer($args[0])){
+                                             $money = EconomyAPI::getInstance()->myMoney($sender);
+                                             $pName = $issuer->getName();
+                                             $target = $player->getName();
+                                             if(!file_exists($this->getDataFolder() . "/bounties/" . strtolower($target) . ".yml")){
+                                               $cfg = new Config($this->getDataFolder() . "/bounties/" . strtolower($target) . ".yml", Config::YAML);
+                                               $cfg->set("bounty", 0);
+                                               $cfg->save();
+                                             }
+                                             if($args[1] < 5000){
+                                               $sender->sendMessage(C::DARK_GRAY . C::BOLD . "[" . C::RED . "COMMANDS" . C::DARK_GRAY . "] " . C::RESET . C::GRAY . "The minimum amount to bounty someone is " . C::AQUA . "$5000" . C::GRAY . ".");
+                                               return true;
+                                             }
+                                             
+                                             if(strpos($args[1], ".") !== false){
+                                               $sender->sendMessage(C::DARK_GRAY . C::BOLD . "[" . C::RED . "COMMANDS" . C::DARK_GRAY . "] " . C::RESET . C::GRAY . "Enter a valid number!");
+                                                                           return true;
+                                             }
+
+                                             if (!is_numeric($args[1])) {
+                                             $sender->sendMessage(C::DARK_GRAY . C::BOLD . "[" . C::RED . "COMMANDS" . C::DARK_GRAY . "] " . C::RESET . C::GRAY . "You specified an invalid bounty amount.");
+                                             return true;
+                                             }
+
+                                             if ($money < $args[1]) {
+                                             $sender->sendMessage(C::DARK_GRAY . C::BOLD . "[" . C::RED . "COMMANDS" . C::DARK_GRAY . "] " . C::RESET . C::GRAY . "You don't have enough balance to put a $" . $args[1] . " bounty on " . $args[0] . "!");
+                                             return true;
+                                             }
+
+                                             if ($target === $pName or $pName === $target) {
+                                             $sender->sendMessage(C::DARK_GRAY . C::BOLD . "[" . C::RED . "COMMANDS" . C::DARK_GRAY . "] " . C::RESET . C::GRAY . "You cannot put a bounty on yourself!");
+                                             return true;
+                                             }
+
+                                             EconomyAPI::getInstance()->reduceMoney($pName, $args[1]);
+                                             $this->getServer()->broadcastMessage(C::DARK_GRAY . C::BOLD . "[" . C::RED . "BOUNTY" . C::DARK_GRAY . "] " . C::RESET . C::AQUA . $pName . C::GRAY . " has put a " . C::YELLOW . "$" . $args[1] . C::RESET . C::GRAY . " bounty on the head of " . C::AQUA . $futureKill . C::GRAY . "!");
+                                             $this->addBounty($player->getName(), $args[1]);
+                                             return true;
+                                             }else{
+                                             $sender->sendMessage(C::DARK_GRAY . C::BOLD . "[" . C::RED . "COMMANDS" . C::DARK_GRAY . "] " . C::RESET . C::GRAY . "Player is offline!");
+                                             return true;
+                                             }
+                                             break;
