@@ -44,7 +44,7 @@ class CustomEnchantments{
         }
         break;
       case "vampire":
-        switch(mt_rand(1,28) == 1){
+        switch(mt_rand(1,30) == 1){
           case 9:
             $dmgrhealth = $damager->getHealth();
             $vctmhealth = $victim->getHealth();
