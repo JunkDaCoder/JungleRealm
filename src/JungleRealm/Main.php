@@ -91,6 +91,7 @@ class Main extends PluginBase implements Listener{
             return true;
       break;
           case "kms":
+          case "suicide":
             $sender->setHealth(0);
             $sender->sendMessage(C::GRAY . "You killed yourself.");
             break;
@@ -104,10 +105,58 @@ class Main extends PluginBase implements Listener{
                 break;
                 case "gms":
                 if($sender->hasPermission("cmd.gamemode.survival")){
+                  $sender->setGamemode(0);
                   $sender->sendMessage(C::DARK_GRAY . C::BOLD . "[" . C::RED . "COMMANDS" . C::DARK_GRAY . "] " . C::RESET . C::GRAY . "Gamemode set to " . C::AQUA . "Survival" . C::GRAY . "!");
                   break;
                   case "gmc":
                   if($sender->hasPermission("cmd.gamemode.creative")){
-                    $sender->sendMessage(C::DARK_GRAY . C::BOLD . "[" . C::RED . "COMMANDS" . C::DARK_GRAY . "] " . C::RESET . C::GRAY . "Gamemode set to " . C::AQUA . "Creative" . "!");
+                    $sender->setGamemode(1);
+                    $sender->sendMessage(C::DARK_GRAY . C::BOLD . "[" . C::RED . "COMMANDS" . C::DARK_GRAY . "] " . C::RESET . C::GRAY . "Gamemode set to " . C::AQUA . "Creative" . C::GRAY . "!");
                     break;
-                  $sender->setGamemode(0);
+                    case "gma":
+                    if($sender->hasPermission("cmd.gamemode.adventure")){
+                    $sender->setGamemode(2);
+                    $sender->sendMessage(C::DARK_GRAY . C::BOLD . "[" . C::RED . "COMMANDS" . C::DARK_GRAY . "] " . C::RESET . C::GRAY . "Gamemode set to " . C::AQUA . "Adventure" . C::GRAY . "!");
+                    break;
+                      case "gmsp":
+                      if($sender->hasPermission("cmd.gamemode.spectator")){
+                    $sender->setGamemode(3);
+                    $sender->sendMessage(C::DARK_GRAY . C::BOLD . "[" . C::RED . "COMMANDS" . C::DARK_GRAY . "] " . C::RESET . C::GRAY . "Gamemode set to " . C::AQUA . "Spectator" . C::GRAY . "!");
+                    break;
+                        case "fly":
+                              if($sender->hasPermission("cmd.fly")){
+                                 if($sender->getAllowFlight()){
+                                   $sender->sendMessage(C::DARK_GRAY . C::BOLD . "[" . C::RED . "COMMANDS" . C::DARK_GRAY . "] " . C::RESET . C::GRAY . "Flying Disabled!");
+                                   $sender->setAllowFlight(false);
+                                }else{
+                                   $sender->sendMessage(C::DARK_GRAY . C::BOLD . "[" . C::RED . "COMMANDS" . C::DARK_GRAY . "] " . C::RESET . C::GRAY . "Flying Enabled!");
+                                   $sender->setAllowFlight(true);
+                                break;
+                                   case "feed":
+                                   case "eat":
+                                   if($sender->hasPermission("cmd.eat")){
+                                     $sender->setFood(20);
+                                     $sender->sendMessage(C::DARK_GRAY . C::BOLD . "[" . C::RED . "COMMANDS" . C::DARK_GRAY . "] " . C::RESET . C::GRAY . "Hunger has been filled!");
+                                     break;
+                                     case "heal":
+                                     if($sender->hasPermission("cmd.heal")){
+                                       $sender->setHealth(20);
+                                       $sender->sendMessage(C::DARK_GRAY . C::BOLD . "[" . C::RED . "COMMANDS" . C::DARK_GRAY . "] " . C::RESET . C::GRAY . "Healed back to full health!");
+                                       break;
+                                     }
+                                   }
+                                 }
+                              }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+        }
+      }
+    }
+  }
+}
+                                     
+                      
