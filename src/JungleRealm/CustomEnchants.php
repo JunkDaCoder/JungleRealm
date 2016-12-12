@@ -31,7 +31,7 @@ class CustomEnchantments{
             case 2:
             $damager->sendMessage(C::DARK_GRAY . C::BOLD . "[" . C::RED . "CE" . C::DARK_GRAY . "] " . C::RESET . C::GREEN . "You've blinded your enemy!");
             $victim->sendMessage(C::DARK_GRAY . C::BOLD . "[" . C::RED . "CE" . C::DARK_GRAY . "] " . C::RESET . C::RED . "Your enemy has blinded you!");
-            $blindness->setDuration(200 + 10 * $level);
+            $blindness->setDuration(200 + $level * 10);
             $victim->addEffect($blindness);
             break;
         }
@@ -41,7 +41,7 @@ class CustomEnchantments{
           case 3:
             $damager->sendMessage(C::DARK_GRAY . C::BOLD . "[" . C::RED . "CE" . C::DARK_GRAY . "] " . C::RESET . C::GREEN . "Enemy has been injected with venom!");
             $victim->sendMessage(C::DARK_GRAY . C::BOLD . "[" . C::RED . "CE" . C::DARK_GRAY . "] " . C::RESET . C::RED . "You've been injected with venom!");
-            $poison->setDuration(200 + 20 * $level);
+            $poison->setDuration(200 + $level * 10);
             $victim->addEffect($poison);
             break;
         }
@@ -63,10 +63,18 @@ class CustomEnchantments{
           case 5:
             $damager->sendMessage(C::DARK_GRAY . C::BOLD . "[" . C::RED . "CE" . C::DARK_GRAY . "] " . C::RESET . C::GREEN . "Enemy has been withered!");
             $victim->sendMessage(C::DARK_GRAY . C::BOLD . "[" . C::RED . "CE" . C::DARK_GRAY . "] " . C::RESET . C::RED . "You've been withered!");
-            $wither->setDuration(200 + 10 * $level);
+            $wither->setDuration(200 + $level * 10);
             $victim->addEffect($wither);
             break;
         }
         break;
       case "iceaspect":
-        /* TO DO */
+        switch (mt_rand(1,20) == 1){
+          case 6:
+            $damager->sendMessage(C::DARK_GRAY . C::BOLD . "[" . C::RED . "CE" . C::DARK_GRAY . "] " . C::RESET . C::GREEN . "Enemy has been frozen!");
+            $victim->sendMessage(C::DARK_GRAY . C::BOLD . "[" . C::RED . "CE" . C::DARK_GRAY . "] " . C::RESET . C::RED . "You've been frozen!");
+            $slowness->setDuration(200 + $level * 10);
+            $victim->addEffect($slowness);
+            break;
+        }
+        break;
