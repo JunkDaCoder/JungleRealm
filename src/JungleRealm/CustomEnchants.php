@@ -27,7 +27,7 @@ class CustomEnchantments{
       
     switch ($enchant){
       case "blindness":
-        switch(mt_rand(1, 15) == 1){
+        switch(mt_rand(1, 20) == 1){
             case 2:
             $damager->sendMessage(C::DARK_GRAY . C::BOLD . "[" . C::RED . "CE" . C::DARK_GRAY . "] " . C::RESET . C::GREEN . "You've blinded your enemy!");
             $victim->sendMessage(C::DARK_GRAY . C::BOLD . "[" . C::RED . "CE" . C::DARK_GRAY . "] " . C::RESET . C::RED . "Your enemy has blinded you!");
@@ -37,27 +37,36 @@ class CustomEnchantments{
         }
         break;
       case "venom":
-        switch(mt_rand(1, 15) == 1){
+        switch(mt_rand(1, 20) == 1){
           case 3:
             $damager->sendMessage(C::DARK_GRAY . C::BOLD . "[" . C::RED . "CE" . C::DARK_GRAY . "] " . C::RESET . C::GREEN . "Enemy has been injected with venom!");
             $victim->sendMessage(C::DARK_GRAY . C::BOLD . "[" . C::RED . "CE" . C::DARK_GRAY . "] " . C::RESET . C::RED . "You've been injected with venom!");
-            $poison->setDuration(200 + $level * 20);
+            $poison->setDuration(200 + 20 * $level);
             $victim->addEffect($poison);
             break;
         }
         break;
       case "vampire":
-        switch(mt_rand(1,30) == 1){
+        switch(mt_rand(1,40) == 1){
           case 4:
             $dmgrhealth = $damager->getHealth();
             $vctmhealth = $victim->getHealth();
-            $damager->sendMessage(C::DARK_GRAY . C::BOLD . "[" . C::RED . "CE" . C::DARK_GRAY . "] " . C::RESET . C::GREEN . "+3 HP stolen from enemy!");
-            $damager->setHealth($dmgrhealth + 3);
-            $damager->sendMessage(C::DARK_GRAY . C::BOLD . "[" . C::RED . "CE" . C::DARK_GRAY . "] " . C::RESET . C::RED . "-3 HP stolen by the enemy!");
-            $victim->setHealth($vctmhealth - 3);
+            $damager->sendMessage(C::DARK_GRAY . C::BOLD . "[" . C::RED . "CE" . C::DARK_GRAY . "] " . C::RESET . C::GREEN . "+4 HP stolen from enemy!");
+            $damager->setHealth($dmgrhealth + 4);
+            $victim->sendMessage(C::DARK_GRAY . C::BOLD . "[" . C::RED . "CE" . C::DARK_GRAY . "] " . C::RESET . C::RED . "-4 HP stolen by the enemy!");
+            $victim->setHealth($vctmhealth - 4);
             break;
         }
         break;
       case "wither":
-        switch(mt_rand(1,18) == 1){
+        switch(mt_rand(1,20) == 1){
           case 5:
+            $damager->sendMessage(C::DARK_GRAY . C::BOLD . "[" . C::RED . "CE" . C::DARK_GRAY . "] " . C::RESET . C::GREEN . "Enemy has been withered!");
+            $victim->sendMessage(C::DARK_GRAY . C::BOLD . "[" . C::RED . "CE" . C::DARK_GRAY . "] " . C::RESET . C::RED . "You've been withered!");
+            $wither->setDuration(200 + 10 * $level);
+            $victim->addEffect($wither);
+            break;
+        }
+        break;
+      case "iceaspect":
+        /* TO DO */
